@@ -1,0 +1,508 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Crust & Crave | Pizza Kitchen</title>
+
+<style>
+:root {
+  --dark: #17130f;
+  --cream: #fbf6ed;
+  --gold: #f4bd58;
+  --green: #276747;
+  --red: #c9472b;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: Arial, sans-serif;
+  background: var(--cream);
+  color: #27231e;
+}
+button, select { font: inherit; }
+button { cursor: pointer; }
+
+header {
+  background: var(--dark);
+  color: white;
+  padding: 20px 7%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+.logo {
+  font-family: Georgia, serif;
+  font-size: 25px;
+  font-weight: bold;
+}
+.logo span { color: var(--gold); }
+nav { display: flex; gap: 22px; flex-wrap: wrap; }
+nav a { color: white; text-decoration: none; font-size: 14px; }
+nav a:hover { color: var(--gold); }
+
+.btn {
+  border: 0;
+  border-radius: 30px;
+  padding: 13px 21px;
+  font-weight: bold;
+  background: var(--gold);
+  color: #21180d;
+}
+.btn:hover { opacity: .9; }
+
+.hero {
+  min-height: 510px;
+  padding: 80px 7%;
+  display: flex;
+  align-items: center;
+  color: white;
+  background:
+    linear-gradient(90deg, rgba(15,12,9,.96), rgba(15,12,9,.68), rgba(15,12,9,.12)),
+    url("https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=1800&q=85")
+    center/cover;
+}
+.hero-content { max-width: 530px; }
+.eyebrow {
+  color: var(--gold);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-size: 12px;
+  font-weight: bold;
+}
+h1 {
+  font-family: Georgia, serif;
+  font-size: clamp(44px, 7vw, 72px);
+  line-height: 1.08;
+  margin: 20px 0;
+}
+h1 span { color: var(--gold); }
+.hero p { line-height: 1.8; color: #eee2d2; margin-bottom: 25px; }
+
+.categories {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  flex-wrap: wrap;
+  padding: 25px 5%;
+  background: white;
+}
+.categories span { font-size: 14px; font-weight: bold; }
+
+.menu { padding: 65px 7%; }
+h2 { font: bold 36px Georgia, serif; margin-top: 8px; }
+.sub { color: #777; margin-top: 10px; line-height: 1.7; }
+.section-head { margin-bottom: 30px; }
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 25px;
+}
+.filter {
+  padding: 10px 18px;
+  border: 1px solid #ddd0bd;
+  border-radius: 25px;
+  background: white;
+}
+.filter.active { background: var(--dark); color: white; }
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 20px;
+}
+.card {
+  background: white;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 5px 25px #30200b0d;
+  transition: transform .2s;
+}
+.card:hover { transform: translateY(-4px); }
+.card img {
+  width: 100%;
+  height: 190px;
+  object-fit: cover;
+  display: block;
+}
+.card-body { padding: 17px; }
+.card h3 { font-size: 18px; }
+.card p {
+  color: #777;
+  font-size: 13px;
+  line-height: 1.6;
+  margin: 10px 0;
+  min-height: 42px;
+}
+.price {
+  color: var(--green);
+  font-size: 21px;
+  font-weight: bold;
+  margin: 12px 0;
+}
+.card select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background: white;
+  margin-bottom: 10px;
+}
+.add {
+  width: 100%;
+  padding: 12px;
+  border: 0;
+  border-radius: 8px;
+  background: var(--green);
+  color: white;
+  font-weight: bold;
+}
+.add:hover { background: #194b32; }
+
+.cart {
+  margin: 0 7% 60px;
+  padding: 25px;
+  background: white;
+  border-radius: 15px;
+}
+.cart h2 { font-size: 28px; margin-bottom: 15px; }
+.cart-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  padding: 13px 0;
+  border-bottom: 1px solid #eee;
+}
+.remove { border: 0; background: transparent; color: var(--red); }
+.total {
+  text-align: right;
+  font-size: 23px;
+  font-weight: bold;
+  margin: 20px 0;
+}
+.order-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.dark-btn { background: var(--dark); color: white; }
+.notice { color: #777; font-size: 12px; margin-top: 12px; }
+
+.promo {
+  padding: 60px 7%;
+  color: white;
+  background: linear-gradient(110deg, #21150e, #60321d);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 25px;
+  flex-wrap: wrap;
+}
+.promo h2 { max-width: 500px; line-height: 1.25; }
+.promo p { color: #e6d6c6; }
+
+footer {
+  background: #100e0b;
+  color: #d5cec4;
+  padding: 32px 7%;
+  text-align: center;
+  line-height: 1.9;
+}
+footer strong { color: var(--gold); }
+
+@media (max-width: 950px) {
+  .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  header { flex-wrap: wrap; }
+  nav { order: 3; width: 100%; justify-content: center; }
+}
+@media (max-width: 540px) {
+  header { padding: 16px 5%; }
+  .logo { font-size: 21px; }
+  header > .btn { padding: 10px 13px; }
+  .hero { padding: 65px 6%; min-height: 440px; }
+  .grid { grid-template-columns: 1fr; }
+  .card img { height: 235px; }
+  .menu { padding: 45px 5%; }
+  .cart { margin: 0 5% 40px; }
+  h2 { font-size: 30px; }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo">🍕 Crust <span>&amp; Crave</span></div>
+  <nav>
+    <a href="#home">Home</a>
+    <a href="#menu">Menu</a>
+    <a href="#about">Our Story</a>
+    <a href="#contact">Contact</a>
+  </nav>
+  <button class="btn" onclick="goToMenu()">Order Now</button>
+</header>
+
+<main>
+<section class="hero" id="home">
+  <div class="hero-content">
+    <div class="eyebrow">Fresh Ingredients • Big Flavours</div>
+    <h1>Life Is Better<br>With <span>Pizza.</span></h1>
+    <p>
+      Handcrafted flavours, golden crusts and delicious moments.
+      Discover your next favourite pizza at Crust &amp; Crave.
+    </p>
+    <button class="btn" onclick="goToMenu()">Explore Our Menu ↗</button>
+  </div>
+</section>
+
+<div class="categories">
+  <span>🍕 Classic Pizzas</span>
+  <span>🧀 Cheesy Sides</span>
+  <span>🥤 Cool Drinks</span>
+  <span>🎉 Value Combos</span>
+</div>
+
+<section class="menu" id="menu">
+  <div class="section-head">
+    <div class="eyebrow">Made To Make You Smile</div>
+    <h2>Our Popular Menu</h2>
+    <p class="sub">Freshly prepared. Full of flavour. Made for pizza lovers.</p>
+  </div>
+
+  <div class="filters">
+    <button class="filter active" data-category="all">All Items</button>
+    <button class="filter" data-category="pizza">Pizzas</button>
+    <button class="filter" data-category="sides">Sides</button>
+    <button class="filter" data-category="drinks">Drinks</button>
+  </div>
+
+  <div class="grid" id="products"></div>
+</section>
+
+<section class="cart" id="cart">
+  <h2>🛒 Your Order</h2>
+  <div id="cart-items">Your cart is empty. Add a delicious item!</div>
+  <div class="total">Total: ₹<span id="total">0</span></div>
+  <div class="order-buttons">
+    <button class="btn dark-btn" onclick="clearCart()">Clear Cart</button>
+    <button class="btn" onclick="orderWhatsApp()">Order on WhatsApp ↗</button>
+  </div>
+  <p class="notice">
+    Portfolio demo: no payment is collected. Replace the sample WhatsApp
+    number before using this for a real business.
+  </p>
+</section>
+
+<section class="promo" id="about">
+  <div>
+    <div class="eyebrow">Good Food, Great Vibes</div>
+    <h2>A Little More Cheese. A Lot More Happiness.</h2>
+    <p class="sub">Your next pizza night starts here.</p>
+  </div>
+  <button class="btn" onclick="goToMenu()">Find Your Favourite ↗</button>
+</section>
+</main>
+
+<footer id="contact">
+  <strong>CRUST &amp; CRAVE</strong>
+  <p>Pizza • Good Food • Great Vibes</p>
+  <p>Sample portfolio website created by a website designer.</p>
+  <p>Menu, prices and brand details are for demonstration only.</p>
+</footer>
+
+<script>
+const products = [
+  {
+    id: 1, name: "Classic Margherita", category: "pizza", price: 249,
+    desc: "Tomato, mozzarella, basil and Italian herbs.",
+    img: "https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=700&q=85"
+  },
+  {
+    id: 2, name: "Farmhouse Feast", category: "pizza", price: 299,
+    desc: "Mushrooms, capsicum, onions and melted cheese.",
+    img: "https://images.unsplash.com/photo-1571407970349-bc81e7e96d47?auto=format&fit=crop&w=700&q=85"
+  },
+  {
+    id: 3, name: "Tandoori Paneer", category: "pizza", price: 329,
+    desc: "Tandoori paneer, capsicum and spicy signature sauce.",
+    img: "https://images.unsplash.com/photo-1593560708920-61dd98c46a4e?auto=format&fit=crop&w=700&q=85"
+  },
+  {
+    id: 4, name: "Peri Peri Veg", category: "pizza", price: 319,
+    desc: "A spicy kick with colourful veggies and cheese.",
+    img: "https://images.unsplash.com/photo-1579751626657-72bc17010498?auto=format&fit=crop&w=700&q=85"
+  },
+  {
+    id: 5, name: "Cheesy Garlic Bread", category: "sides", price: 129,
+    desc: "Toasted bread, garlic butter and melted cheese.",
+    img: "https://images.unsplash.com/photo-1573140247632-f8fd74997d5c?auto=format&fit=crop&w=700&q=85"
+  },
+  {
+    id: 6, name: "Loaded Potato Wedges", category: "sides", price: 119,
+    desc: "Crispy seasoned potato wedges served with dip.",
+    img: "https://images.unsplash.com/photo-1573080496219-bb080dd4f877?auto=format&fit=crop&w=700&q=85"
+  },
+  {
+    id: 7, name: "Chilled Lemon Soda", category: "drinks", price: 79,
+    desc: "Refreshing lemon soda served ice cold.",
+    img: "https://images.unsplash.com/photo-1513558161293-cdaf765edfd7?auto=format&fit=crop&w=700&q=85"
+  },
+  {
+    id: 8, name: "Chocolate Shake", category: "drinks", price: 149,
+    desc: "Creamy chocolate shake for a sweet finish.",
+    img: "https://images.unsplash.com/photo-1572490122747-3968b75cc699?auto=format&fit=crop&w=700&q=85"
+  }
+];
+
+let cart = [];
+let currentCategory = "all";
+
+function goToMenu() {
+  document.getElementById("menu").scrollIntoView({ behavior: "smooth" });
+}
+
+function renderProducts() {
+  const list = products.filter(function(product) {
+    return currentCategory === "all" || product.category === currentCategory;
+  });
+
+  document.getElementById("products").innerHTML = list.map(function(p) {
+    return `
+      <article class="card">
+        <img
+          src="${p.img}"
+          alt="${p.name}"
+          loading="lazy"
+          onerror="this.onerror=null;this.src='https://placehold.co/700x450/f5ead9/33291e?text=Fresh+Food'"
+        >
+        <div class="card-body">
+          <h3>${p.name}</h3>
+          <p>${p.desc}</p>
+          <div class="price">₹${p.price}</div>
+          <select id="size-${p.id}" aria-label="Choose size for ${p.name}">
+            <option value="0">Regular</option>
+            <option value="50">Medium (+₹50)</option>
+            <option value="100">Large (+₹100)</option>
+          </select>
+          <button class="add" onclick="addToCart(${p.id})">
+            ＋ Add to Cart
+          </button>
+        </div>
+      </article>
+    `;
+  }).join("");
+}
+
+function addToCart(id) {
+  const product = products.find(function(item) {
+    return item.id === id;
+  });
+  const extra = Number(document.getElementById("size-" + id).value);
+  const size = extra === 0 ? "Regular" : extra === 50 ? "Medium" : "Large";
+
+  cart.push({
+    ...product,
+    price: product.price + extra,
+    size: size,
+    cartId: Date.now() + Math.random()
+  });
+
+  renderCart();
+  document.getElementById("cart").scrollIntoView({
+    behavior: "smooth",
+    block: "nearest"
+  });
+}
+
+function renderCart() {
+  const box = document.getElementById("cart-items");
+
+  if (cart.length === 0) {
+    box.textContent = "Your cart is empty. Add a delicious item!";
+  } else {
+    box.innerHTML = cart.map(function(item) {
+      return `
+        <div class="cart-row">
+          <span>${item.name} (${item.size}) — ₹${item.price}</span>
+          <button class="remove" onclick="removeItem(${item.cartId})">
+            Remove
+          </button>
+        </div>
+      `;
+    }).join("");
+  }
+
+  const total = cart.reduce(function(sum, item) {
+    return sum + item.price;
+  }, 0);
+
+  document.getElementById("total").textContent = total;
+}
+
+function removeItem(id) {
+  cart = cart.filter(function(item) {
+    return item.cartId !== id;
+  });
+  renderCart();
+}
+
+function clearCart() {
+  cart = [];
+  renderCart();
+}
+
+document.querySelectorAll(".filter").forEach(function(button) {
+  button.addEventListener("click", function() {
+    document.querySelectorAll(".filter").forEach(function(item) {
+      item.classList.remove("active");
+    });
+
+    button.classList.add("active");
+    currentCategory = button.dataset.category;
+    renderProducts();
+  });
+});
+
+function orderWhatsApp() {
+  if (cart.length === 0) {
+    alert("Please add something to your cart first!");
+    return;
+  }
+
+  // Replace this sample number with the business WhatsApp number.
+  const phone = "919876543210";
+
+  const lines = cart.map(function(item) {
+    return item.name + " (" + item.size + ") - ₹" + item.price;
+  });
+
+  const total = cart.reduce(function(sum, item) {
+    return sum + item.price;
+  }, 0);
+
+  const message =
+    "Hi! I'd like to enquire about this demo order:\n" +
+    lines.join("\n") +
+    "\nTotal: ₹" + total;
+
+  window.open(
+    "https://wa.me/" + phone + "?text=" + encodeURIComponent(message),
+    "_blank"
+  );
+}
+
+renderProducts();
+renderCart();
+</script>
+
+</body>
+</html>
